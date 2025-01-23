@@ -3,9 +3,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class UserService {
   //Store the userName and password using shared preferences
-  static Future<void> storeUserDetails(String username, String email,
-      String password, String confirmPassword, BuildContext context) async {
+
+  static Future<void> storeUserDetails(
+      {required String username,
+      required String email,
+      required String password,
+      required String confirmPassword,
+      required BuildContext context}) async {
     //check if the password and confirm password are the same
+
     if (password != confirmPassword) {
       //show a snackbar with the error message
       ScaffoldMessenger.of(context).showSnackBar(
@@ -16,6 +22,16 @@ class UserService {
     }
     //Store the username and email in shared preferences
     try {
+      //check if the password and confirm password are the same
+      if (password != confirmPassword) {
+        //show a snackbar with the error message
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("Password and Confirm Password do not match"),
+          ),
+        );
+        return;
+      }
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setString('username', username);
       await prefs.setString('email', email);

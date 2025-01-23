@@ -144,7 +144,7 @@ class _UserDataScreenState extends State<UserDataScreen> {
                       Row(
                         children: [
                           const Text(
-                            "Remember Me for the next time",
+                            "Remember me for the next time",
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w500,
@@ -177,17 +177,22 @@ class _UserDataScreenState extends State<UserDataScreen> {
                             String confirmPassword =
                                 _confirmPasswordContorller.text;
                             //store the user details in shared preferences
-                            await UserService.storeUserDetails(username, email,
-                                password, confirmPassword, context);
+                            await UserService.storeUserDetails(
+                                username: username,
+                                email: email,
+                                password: password,
+                                confirmPassword: confirmPassword,
+                                context: context);
+                            
 
                             //Navigate to the Home screen
-                            if(context.mounted) {
+                            if (context.mounted) {
                               Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const MainScreen(),
-                              ),
-                            );
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const MainScreen(),
+                                ),
+                              );
                             }
                           }
                         },
