@@ -40,8 +40,8 @@ class UserService {
           content: Text("User Details stored successfully"),
         ),
       );
-    } catch (e) {
-      print(e.toString());
+    } catch (err) {
+      print(err.toString());
     }
   }
 
@@ -55,6 +55,7 @@ class UserService {
 
   //Check if the username is stored in shared preferences
   static Future<bool> checkUsername() async {
+    //create an instance for shared pref
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? username = prefs.getString('username');
     return username != null;
