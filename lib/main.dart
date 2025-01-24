@@ -1,5 +1,6 @@
 import 'package:expenz/screens/onboarding_screen.dart';
 import 'package:expenz/service/user_services.dart';
+import 'package:expenz/widgets/wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -21,7 +22,15 @@ class MyApp extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const CircularProgressIndicator();
         } else {
-          // here the hasUserName will be set to true of the data is their in the snapshot and othewise false
+          // here the hasUserName will be set to true of the data is their in the snapshot and otherwise false
+          bool hasUserName = snapshot.data ?? false;
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData(
+              fontFamily: "Inter",
+            ),
+            home: Wrapper(showMainScreen: hasUserName),
+          );
         }
       },
     );
