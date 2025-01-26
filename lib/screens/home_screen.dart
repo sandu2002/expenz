@@ -1,6 +1,7 @@
 import 'package:expenz/service/user_services.dart';
 import 'package:expenz/utils/colors.dart';
 import 'package:expenz/utils/constants.dart';
+import 'package:expenz/widgets/income_expence_card.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -35,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             children: [
               Container(
-                height: MediaQuery.of(context).size.height * 0.4,
+                height: MediaQuery.of(context).size.height * 0.3,
                 decoration: BoxDecoration(
                   color: kMainColor.withOpacity(0.17),
                   borderRadius: BorderRadius.only(
@@ -84,6 +85,28 @@ class _HomeScreenState extends State<HomeScreen> {
                               color: kMainColor,
                               size: 30,
                             ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          IncomeExpenceCard(
+                            title: "Income",
+                            amount: 1200,
+                            imageUrl:
+                                "https://cdn.pixabay.com/photo/2013/07/13/12/03/banknotes-159085_640.png",
+                            bgColor: kGreen,
+                          ),
+                          IncomeExpenceCard(
+                            title: "Expence",
+                            amount: 2400,
+                            imageUrl:
+                                "https://cdn.pixabay.com/photo/2013/07/13/11/44/capsule-158568_640.png",
+                            bgColor: kRed,
                           ),
                         ],
                       ),

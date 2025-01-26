@@ -1,4 +1,4 @@
-import 'package:expenz/screens/addnew_screen.dart';
+import 'package:expenz/screens/add_new_screen.dart';
 import 'package:expenz/screens/budget_screen.dart';
 import 'package:expenz/screens/home_screen.dart';
 import 'package:expenz/screens/profile_screen.dart';
@@ -20,9 +20,9 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     //screenlist
     final List<Widget> pages = [
+      addNewScreen(),
       HomeScreen(),
       TransactionScreen(),
-      addNewScreen(),
       BudgetScreen(),
       ProfileScreen()
     ];
