@@ -215,7 +215,7 @@ class _addNewScreenState extends State<addNewScreen> {
                         ),
                         //description feild
                         TextFormField(
-                          controller: _titleController,
+                          controller: _descriptionController,
                           decoration: InputDecoration(
                             hintText: "Description",
                             border: OutlineInputBorder(
@@ -232,7 +232,7 @@ class _addNewScreenState extends State<addNewScreen> {
                         //description feild
                         TextFormField(
                           keyboardType: TextInputType.number,
-                          controller: _titleController,
+                          controller: _amountController,
                           decoration: InputDecoration(
                             hintText: "Amount",
                             border: OutlineInputBorder(

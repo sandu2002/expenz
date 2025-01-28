@@ -27,7 +27,7 @@ class _IncomeExpenceCardState extends State<IncomeExpenceCard> {
       width: MediaQuery.of(context).size.width * 0.45,
       height: MediaQuery.of(context).size.height * 0.10,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(30),
         color: widget.bgColor,
       ),
       child: Padding(
@@ -36,7 +36,7 @@ class _IncomeExpenceCardState extends State<IncomeExpenceCard> {
           children: [
             Container(
               height: MediaQuery.of(context).size.height * 0.12,
-              width: MediaQuery.of(context).size.width * 0.12,
+              width: MediaQuery.of(context).size.width * 0.14,
               decoration: BoxDecoration(
                 color: kWhite,
                 borderRadius: BorderRadius.circular(20),
@@ -44,13 +44,13 @@ class _IncomeExpenceCardState extends State<IncomeExpenceCard> {
               child: Center(
                 child: Image.network(
                   widget.imageUrl,
-                  width: 50,
+                  width: 35,
                 ),
               ),
             ),
             SizedBox(width: 10),
             Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   widget.title,
@@ -64,7 +64,7 @@ class _IncomeExpenceCardState extends State<IncomeExpenceCard> {
                   "\$${widget.amount.toStringAsFixed(0)}",
                   style: TextStyle(
                     fontSize: 17,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w700,
                     color: kWhite,
                   ),
                 ),

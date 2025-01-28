@@ -36,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             children: [
               Container(
-                height: MediaQuery.of(context).size.height * 0.3,
+                height: MediaQuery.of(context).size.height * 0.28,
                 decoration: BoxDecoration(
                   color: kMainColor.withOpacity(0.17),
                   borderRadius: BorderRadius.only(
@@ -91,24 +91,27 @@ class _HomeScreenState extends State<HomeScreen> {
                       SizedBox(
                         height: 20,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          IncomeExpenceCard(
-                            title: "Income",
-                            amount: 1200,
-                            imageUrl:
-                                "https://cdn.pixabay.com/photo/2013/07/13/12/03/banknotes-159085_640.png",
-                            bgColor: kGreen,
-                          ),
-                          IncomeExpenceCard(
-                            title: "Expence",
-                            amount: 2400,
-                            imageUrl:
-                                "https://cdn.pixabay.com/photo/2013/07/13/11/44/capsule-158568_640.png",
-                            bgColor: kRed,
-                          ),
-                        ],
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: kDefalutPadding),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            IncomeExpenceCard(
+                              title: "Income",
+                              amount: 5200,
+                              imageUrl:
+                                  "https://cdn-icons-png.flaticon.com/512/8140/8140224.png",
+                              bgColor: kGreen,
+                            ),
+                            IncomeExpenceCard(
+                              title: "Expence",
+                              amount: 2400,
+                              imageUrl:
+                                  "https://cdn-icons-png.freepik.com/512/10502/10502550.png",
+                              bgColor: kRed,
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
