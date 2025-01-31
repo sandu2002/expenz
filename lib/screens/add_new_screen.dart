@@ -1,23 +1,23 @@
-import 'package:expenz/models/expence.model.dart';
+import 'package:expenz/models/expense.model.dart';
 import 'package:expenz/models/income_model.dart';
+import 'package:expenz/service/expense_service.dart';
 import 'package:expenz/utils/colors.dart';
 import 'package:expenz/utils/constants.dart';
 import 'package:expenz/widgets/custom_button.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:intl/number_symbols_data.dart';
 
 // ignore: camel_case_types
-class addNewScreen extends StatefulWidget {
-  const addNewScreen({super.key});
+class AddNewScreen extends StatefulWidget {
+  final Function(Expense) addExpense;
+  const AddNewScreen({super.key, required this.addExpense});
 
   @override
-  State<addNewScreen> createState() => _addNewScreenState();
+  State<AddNewScreen> createState() => _AddNewScreenState();
 }
 
 // ignore: camel_case_types
-class _addNewScreenState extends State<addNewScreen> {
+class _AddNewScreenState extends State<AddNewScreen> {
   //state to track the expence or income
   int _selectedMethode = 0;
 
@@ -320,15 +320,15 @@ class _addNewScreenState extends State<addNewScreen> {
                                   context: context,
                                   initialTime: TimeOfDay.now(),
                                 ).then((value) {
-                                  if(value != null){
+                                  if (value != null) {
                                     setState(() {
                                       _selectedTime = DateTime(
-                                      _selectedDate.year,
-                                      _selectedDate.month,
-                                      _selectedDate.day,
-                                      value.hour,
-                                      value.minute,
-                                    );
+                                        _selectedDate.year,
+                                        _selectedDate.month,
+                                        _selectedDate.day,
+                                        value.hour,
+                                        value.minute,
+                                      );
                                     });
                                   }
                                 });
@@ -373,15 +373,43 @@ class _addNewScreenState extends State<addNewScreen> {
                               ),
                             )
                           ],
-                        ),SizedBox(height: 20,),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
                         Divider(
                           color: kLightGrey,
                           thickness: 5,
-                        ),SizedBox(height: 20,),
-                        CustumButton(
-                          buttonName: "Add",
-                          buttonColor:
-                          _selectedMethode == 0 ? kRed : kGreen,)
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        //submit button
+                        GestureDetector(
+                          onTap: () async {
+                            //save the expence or the income data into shared pref
+                            List<Expense> loadedExpenses =
+                                await ExpenceService().loadExpenses();
+
+                            //create the expense to stroe
+                            Expense expense = Expense(
+                              id: loadedExpenses.length + 1,
+                              title: _titleController.text,
+                              amount: double.parse(_amountController.text),
+                              category: _expenseCategory,
+                              date: _selectedDate,
+                              time: _selectedTime,
+                              description: _descriptionController.text,
+                            );
+
+                            //add expence
+                            widget.addExpense(expense);
+                          },
+                          child: CustumButton(
+                            buttonName: "Add",
+                            buttonColor: _selectedMethode == 0 ? kRed : kGreen,
+                          ),
+                        )
                       ],
                     ),
                   ),
