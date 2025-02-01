@@ -1,6 +1,7 @@
 import 'package:expenz/models/expense.model.dart';
 import 'package:expenz/models/income_model.dart';
 import 'package:expenz/service/expense_service.dart';
+import 'package:expenz/service/income_service.dart';
 import 'package:expenz/utils/colors.dart';
 import 'package:expenz/utils/constants.dart';
 import 'package:expenz/widgets/custom_button.dart';
@@ -10,7 +11,13 @@ import 'package:intl/intl.dart';
 // ignore: camel_case_types
 class AddNewScreen extends StatefulWidget {
   final Function(Expense) addExpense;
-  const AddNewScreen({super.key, required this.addExpense});
+  final Function(Income) addIncome;
+  const AddNewScreen({
+    super.key,
+    required this.addExpense,
+    required this.addIncome,
+    }
+  );
 
   @override
   State<AddNewScreen> createState() => _AddNewScreenState();
@@ -388,22 +395,58 @@ class _AddNewScreenState extends State<AddNewScreen> {
                         GestureDetector(
                           onTap: () async {
                             //save the expence or the income data into shared pref
-                            List<Expense> loadedExpenses =
-                                await ExpenceService().loadExpenses();
+                            if (_selectedMethode == 0) {
+                              //adding expenses
+                              List<Expense> loadedExpenses =
+                                  await ExpenceService().loadExpenses();
 
-                            //create the expense to stroe
-                            Expense expense = Expense(
-                              id: loadedExpenses.length + 1,
-                              title: _titleController.text,
-                              amount: double.parse(_amountController.text),
-                              category: _expenseCategory,
-                              date: _selectedDate,
-                              time: _selectedTime,
-                              description: _descriptionController.text,
-                            );
+                              //create the expense to stroe
+                              Expense expense = Expense(
+                                id: loadedExpenses.length + 1,
+                                title: _titleController.text,
+                                amount: _amountController.text.isEmpty
+                                    ? 0
+                                    : double.parse(_amountController.text),
+                                category: _expenseCategory,
+                                date: _selectedDate,
+                                time: _selectedTime,
+                                description: _descriptionController.text,
+                              );
 
-                            //add expence
-                            widget.addExpense(expense);
+                              //add expence
+                              widget.addExpense(expense);
+
+                              //clear the feild
+                              _titleController.clear();
+                              _amountController.clear();
+                              _descriptionController.clear();
+                            } else {
+                              // Assuming a method to load income
+                              List<Income> loadedIncome =
+                                  await IncomeServices().loadIncomes();
+                              Income income = Income(
+                                id: loadedIncome.length + 1,
+
+                                // Calculate ID based on loaded income
+
+                                title: _titleController.text,
+                                amount: _amountController.text.isEmpty
+                                    ? 0
+                                    : double.parse(_amountController.text),
+                                category: _incomeCategory,
+                                date: _selectedDate,
+                                time: _selectedTime,
+                                description: _descriptionController.text,
+                              );
+
+                              //add income to the list
+                              widget.addIncome(income);
+
+                              //clear text fields
+                              _titleController.clear();
+                              _amountController.clear();
+                              _descriptionController.clear();
+                            }
                           },
                           child: CustumButton(
                             buttonName: "Add",
