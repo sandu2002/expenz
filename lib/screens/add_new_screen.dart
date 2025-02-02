@@ -452,7 +452,9 @@ class _AddNewScreenState extends State<AddNewScreen> {
                             buttonName: "Add",
                             buttonColor: _selectedMethode == 0 ? kRed : kGreen,
                           ),
-                        )
+                          
+                        ),
+                        
                       ],
                     ),
                   ),
