@@ -10,11 +10,11 @@ enum ExpenseCategory {
 
 //category images
 final Map<ExpenseCategory, String> expenseCategoryImages = {
-  ExpenseCategory.food: "assets/images/restaurant.png",
-  ExpenseCategory.transport: "assets/images/car.png",
-  ExpenseCategory.health: "assets/images/health.png",
-  ExpenseCategory.shopping: "assets/images/bag.png",
-  ExpenseCategory.subscription: "assets/images/bill.png",
+  ExpenseCategory.food: "https://cdn.pixabay.com/photo/2014/10/02/08/30/honey-bee-469560_640.png",
+  ExpenseCategory.transport: "https://cdn.pixabay.com/photo/2014/10/02/08/30/honey-bee-469560_640.png",
+  ExpenseCategory.health: "https://cdn.pixabay.com/photo/2014/10/02/08/30/honey-bee-469560_640.png",
+  ExpenseCategory.shopping: "https://cdn.pixabay.com/photo/2014/10/02/08/30/honey-bee-469560_640.png",
+  ExpenseCategory.subscription: "https://cdn.pixabay.com/photo/2014/10/02/08/30/honey-bee-469560_640.png",
 };
 
 //category colors

@@ -1,4 +1,3 @@
-import 'package:expenz/screens/onboarding_screen.dart';
 import 'package:expenz/service/user_services.dart';
 import 'package:expenz/widgets/wrapper.dart';
 import 'package:flutter/material.dart';
