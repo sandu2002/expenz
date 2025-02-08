@@ -91,7 +91,14 @@ class IncomeServices {
         ),
       );
     } catch (e) {
-      print(e.toString());
+      if(context.mounted){
+        ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('IError deleting income'),
+          duration: Duration(seconds: 2),
+        ),
+      );
+      }
     }
   }
 
@@ -99,6 +106,7 @@ class IncomeServices {
   Future<void> deleteAllIncomes(BuildContext context) async {
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.getStringList(_incomeKey);
 
       // Clear all incomes from shared preferences
       await prefs.remove(_incomeKey);

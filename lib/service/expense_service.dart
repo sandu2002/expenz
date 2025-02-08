@@ -103,6 +103,8 @@ class ExpenceService {
   Future<void> deleteAllExpenses(BuildContext context) async {
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
+
+      // Clear all expenses from shared preferences
       await prefs.remove(_expensesKey);
 
       //show snackbar
