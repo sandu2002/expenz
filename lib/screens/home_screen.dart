@@ -1,11 +1,15 @@
+import 'package:expenz/models/expense.model.dart';
 import 'package:expenz/service/user_services.dart';
 import 'package:expenz/utils/colors.dart';
 import 'package:expenz/utils/constants.dart';
+import 'package:expenz/widgets/expense_card.dart';
 import 'package:expenz/widgets/income_expence_card.dart';
+import 'package:expenz/widgets/line_chart.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  final List<Expense> expenseList;
+  const HomeScreen({super.key, required this.expenseList});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -34,6 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: SingleChildScrollView(
           //main column
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
                 height: MediaQuery.of(context).size.height * 0.28,
@@ -92,7 +97,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         height: 20,
                       ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(vertical: kDefalutPadding),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: kDefalutPadding),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -117,6 +123,64 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
               ),
+              //Line chart
+              Padding(
+                padding: const EdgeInsets.all(kDefalutPadding),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Speed Frequency",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    LineChartSample(),
+                  ],
+                ),
+              ),
+              //recent transactions
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: kDefalutPadding),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("Recents Transactions",
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
+                        )),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Column(
+                      children: [
+                        ListView.builder(
+                          shrinkWrap: true,
+                          scrollDirection: Axis.vertical,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemCount: widget.expenseList.length,
+                          itemBuilder: (context, index) {
+                            final Expense = widget.expenseList[index];
+
+                            return ExpenceCard(
+                                title: Expense.title,
+                                date: Expense.date,
+                                amount: Expense.amount,
+                                category: Expense.category,
+                                description: Expense.description,
+                                createdAt: Expense.time);
+                          })
+                      ],
+                    )
+                  ],
+                ),
+              )
             ],
           ),
         ),

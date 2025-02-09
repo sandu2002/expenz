@@ -90,13 +90,17 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     //screenlist
     final List<Widget> pages = [
+      HomeScreen(
+        expenseList: expenseList,
+      ),
+      
       TransactionScreen(
         incomeList: incomeList,
         expensesList: expenseList,
         onDissmissedExpenses: removeExpense,
         onDissmissedIncome: removeIncome,
       ),
-      HomeScreen(),
+      
       AddNewScreen(
         addExpense: addNewExpense,
         addIncome: addNewIncome,
