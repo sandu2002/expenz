@@ -26,6 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
   double incometotal = 0;
   @override
   void initState() {
+    super.initState();
     //get the username form the shared preferences
 
     UserService.getUserDetails().then((value) {
