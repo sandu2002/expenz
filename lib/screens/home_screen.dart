@@ -1,4 +1,5 @@
 import 'package:expenz/models/expense.model.dart';
+import 'package:expenz/models/income_model.dart';
 import 'package:expenz/service/user_services.dart';
 import 'package:expenz/utils/colors.dart';
 import 'package:expenz/utils/constants.dart';
@@ -9,7 +10,9 @@ import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
   final List<Expense> expenseList;
-  const HomeScreen({super.key, required this.expenseList});
+  final List<Income> incomeList;
+  const HomeScreen(
+      {super.key, required this.expenseList, required this.incomeList});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -19,6 +22,8 @@ class _HomeScreenState extends State<HomeScreen> {
   //for store the username
 
   String username = "";
+  double expensetotal = 0;
+  double incometotal = 0;
   @override
   void initState() {
     //get the username form the shared preferences
@@ -29,7 +34,17 @@ class _HomeScreenState extends State<HomeScreen> {
         username = value['username']!;
       }
     });
-    super.initState();
+    setState(() {
+      //total amount of expenses
+      for (var i = 0; i < widget.expenseList.length; i++) {
+        expensetotal += widget.expenseList[i].amount;
+      }
+
+      //total amount of income
+      for (var i = 0; i < widget.incomeList.length; i++) {
+        incometotal += widget.incomeList[i].amount;
+      }
+    });
   }
 
   Widget build(BuildContext context) {
@@ -104,14 +119,14 @@ class _HomeScreenState extends State<HomeScreen> {
                           children: [
                             IncomeExpenceCard(
                               title: "Income",
-                              amount: 5200,
+                              amount: incometotal,
                               imageUrl:
                                   "https://cdn-icons-png.flaticon.com/512/8140/8140224.png",
                               bgColor: kGreen,
                             ),
                             IncomeExpenceCard(
                               title: "Expence",
-                              amount: 2400,
+                              amount: expensetotal,
                               imageUrl:
                                   "https://cdn-icons-png.freepik.com/512/10502/10502550.png",
                               bgColor: kRed,
@@ -160,22 +175,33 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     Column(
                       children: [
-                        ListView.builder(
-                          shrinkWrap: true,
-                          scrollDirection: Axis.vertical,
-                          physics: NeverScrollableScrollPhysics(),
-                          itemCount: widget.expenseList.length,
-                          itemBuilder: (context, index) {
-                            final Expense = widget.expenseList[index];
+                        widget.expenseList.isEmpty
+                            ? Center(
+                                child: Text(
+                                  "No expense added yet, add some expense to see here",
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    //fontWeight: FontWeight.bold,
+                                    color: kGrey,
+                                  ),
+                                ),
+                              )
+                            : ListView.builder(
+                                shrinkWrap: true,
+                                scrollDirection: Axis.vertical,
+                                physics: NeverScrollableScrollPhysics(),
+                                itemCount: widget.expenseList.length,
+                                itemBuilder: (context, index) {
+                                  final Expense = widget.expenseList[index];
 
-                            return ExpenceCard(
-                                title: Expense.title,
-                                date: Expense.date,
-                                amount: Expense.amount,
-                                category: Expense.category,
-                                description: Expense.description,
-                                createdAt: Expense.time);
-                          })
+                                  return ExpenceCard(
+                                      title: Expense.title,
+                                      date: Expense.date,
+                                      amount: Expense.amount,
+                                      category: Expense.category,
+                                      description: Expense.description,
+                                      createdAt: Expense.time);
+                                })
                       ],
                     )
                   ],
