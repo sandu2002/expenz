@@ -204,7 +204,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       createdAt: Expense.time);
                                 })
                       ],
-                    )
+                    ),SizedBox(height: 20,),
                   ],
                 ),
               )
